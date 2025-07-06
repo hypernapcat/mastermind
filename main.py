@@ -2,32 +2,32 @@ import random
 import sys
 
 def compare_nums(guess, num):
-    guess_str = str(guess)
-    num_str = str(num)
+
+    guess_list = list(map(int, str(guess)))
+    num_list = list(map(int, str(num)))
     matching_list = ['X', 'X', 'X', 'X']
-   # matching_str = "XXXX"
-    for char in num_str:
-        if char in guess_str:
-            if num_str.index(char) == guess_str.index(char):
-                matching_list[num_str.index(char)] = char
+
+    for i in range(0,4):
+        if guess_list[i] == num_list[i]:
+            matching_list[i] = str(guess_list[i])
     revealed = "".join(matching_list)
     return revealed
+        
 
 def main():
 
+    print("**********************")
     print("Welcome to Mastermind!")
     print("Can you guess the four-digit number?")
 
     print("Choosing number . . .")
 
-    num =random.randint(1000, 9999)
-    print(num)
-
     running = True
 
+    num =random.randint(1000, 9999)
+   
+
     while running == True:
-
-
 
         try:
             guess = int(input("Enter your guess: "))
@@ -40,16 +40,17 @@ def main():
             print("Invalid guess. Must be a positive four-digit number.")
         elif guess == num:
             print(f"You are the Mastermind! The number was {num}")
-            print("Play again sometime!")
-            running = False
 
-            # play_again = input("Play again? Y/N ")
-            # if play_again == "Y":
-            #     running = False
-            #     main()
-            # elif play_again == "N":
-            #     print("Thanks for playing!")
-            #     running = False
+            while True:
+                play_again = input("Play again? y/n ")
+                if play_again.lower() == "y":
+                    main()
+                elif play_again.lower() == "n":
+                    running = False
+                    break
+                else:
+                    print("Invalid input")
+                    continue
 
         else:
             revealed = compare_nums(guess, num)
@@ -57,4 +58,9 @@ def main():
             continue
 
 if __name__ == '__main__':
-    main()
+    while True:
+        restart = main()
+        if not restart:
+            print("Thank you for playing!")
+            print("**********************")
+            break
