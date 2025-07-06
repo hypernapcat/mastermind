@@ -29,11 +29,13 @@ def main():
 
     while running == True:
 
-        try:
-            guess = int(input("Enter your guess: "))
-        except ValueError:
-            print("Not a valid input. Exiting program...")
-            sys.exit()
+        while True:
+            try:
+                guess = int(input("Enter your guess: "))
+                break
+            except ValueError:
+                print("Not a valid input.")
+                continue 
 
 
         if guess <= 999 or guess >= 10000:
